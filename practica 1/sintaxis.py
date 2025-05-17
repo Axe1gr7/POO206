@@ -5,4 +5,8 @@ aqui van los comentarios de mas de una linea
 """""
 #strings
 print("hola soy una cadena")
-print('yo soy la otra')
+print('yo soy la otra') 
+
+variable1="hola soy una cadena"
+
+print(len(variable1))
