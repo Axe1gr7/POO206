@@ -3,7 +3,7 @@
 """""
 aqui van los comentarios de mas de una linea 
 """""
-#strings
+#2.-strings
 print("hola soy una cadena")
 print('yo soy la otra') 
 
