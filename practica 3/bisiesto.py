@@ -11,7 +11,7 @@ while z==0:
                 print("El número es bisiesto.")
             else:
              print("El número no es bisiesto.")
-        except (ValueError, ZeroDivisionError) as error:
+        except (ValueError,) as error:
             print(f"Ocurrió un error: {error}")
 
         #except ValueError:print("Debes introducir un año válido.")
