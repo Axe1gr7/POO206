@@ -1,3 +1,4 @@
+r=(int)
 z=0
     
 while z==0:
@@ -5,11 +6,15 @@ while z==0:
     if r== 0: 
         try:
             n = int(input("Introduce un año: "))
+            error = n != int
             if n % 4 == 0:
                 print("El número es bisiesto.")
             else:
              print("El número no es bisiesto.")
-        except ValueError:print("Debes introducir un año válido.")
+        except (ValueError, ZeroDivisionError) as error:
+            print(f"Ocurrió un error: {error}")
+
+        #except ValueError:print("Debes introducir un año válido.")
         
     else:
           print("vuelva pronto")
