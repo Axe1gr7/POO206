@@ -13,5 +13,5 @@ while z==0:
         except ValueError:print("Debes introducir un número entero válido.")
         
     else:
-          print("fin")
+          print("vuelva pronto")
           break
