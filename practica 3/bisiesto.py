@@ -8,9 +8,9 @@ while z==0:
             n = int(input("Introduce un año: "))
             error = n != int
             if n % 4 == 0:
-                print("El número es bisiesto.")
+                print("El año es bisiesto.")
             else:
-             print("El número no es bisiesto.")
+             print("El año no es bisiesto.")
         except (ValueError,) as error:
             print(f"Ocurrió un error: ",error)
     else:
