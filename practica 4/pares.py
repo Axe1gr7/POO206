@@ -6,7 +6,6 @@ while w==0:
     if r == 0:
         try:
            num = int(input("\ningresa un numero mayor a 10: "))
-           #corroborar si la conraseña tiene 10 caracteres
            if num < 10:
                raise ValueError("Ingresa un numero mayor que 10 . vuelva a intentar")
            else:
