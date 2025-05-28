@@ -1,4 +1,4 @@
-print("\nprograma que hace una cuenta regresiva del numero que ingresa el usuario al 0\n")
+print("\nprograma que cuenta las letras de una frase\n")
 r=(int)
 w=0
 while w==0:
