@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <h2> Vista de formulario</h2>
+    <a href="/consulta"> Abrir vista de consulta </a>
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+
+    {%with mensajes= get_flashed_messages()%}
+           {%if mensajes%}
+              {%for msj in mensajes%}
+                 <h4> {{msj}}</h4>
+              {%endfor%}
+           {%endif%}
+    {%endwith%}
+
+    <form action="/guardar" method = "post">
+        <input type = "text" name="txt_titulo" placeholder="titulo" value="{{request.form.txt_titulo}}" >
+        {%if errores and errores.txt_titulo%}
+          <p style =" color:purple">{{errores.txt_titulo}}</p>
+        {%endif%}
+        <input type = "text" name="txt_artista" placeholder="artista" value="{{request.form.txt_artista}}">
+        {%if errores and errores.txt_artista%}
+          <p style =" color:purple">{{errores.txt_artista}}</p>
+        {%endif%}
+        <input type = "number" name="txt_anio" placeholder="anio" value="{{request.form.txt_anio}}">
+        {%if errores and errores.txt_anio%}
+          <p style =" color:purple">{{errores.txt_anio}}</p>
+        {%endif%}
+
+        <button type="submit">Guardar album</button>    
+    </form>
+</body>
+</html>
