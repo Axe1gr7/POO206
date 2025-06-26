@@ -20,7 +20,8 @@ def DB_check():
           cursor.execute('select 1')
           return jsonify( {'status':'ok','message':'Conectado con exito'} ),200     
      except MySQLdb.MySQLError as e:return jsonify( {'status':'error','message':str(e)} ),500 
-     
+
+
      
 #RUTA TRY-CATCH PARA ERRORES
 @app.errorhandler(404)
@@ -28,9 +29,37 @@ def PagNoE(e):
     return 'CUIDADO: ERROR DE CAPA 8 ¡¡¡'
 
 
-@app.route('/formulario')
+@app.route('/')
 def home():
-    return render_template('formulario.html')
+     try:
+          cursor=mysql.connection.cursor()
+          cursor.execute('SELECT * FROM tb_albums')
+          consultaTodo= cursor.fetchall()
+          return render_template('formulario.html', errores={},albums=consultaTodo)
+     
+     except Exception as e:
+          print('error al consultar todo: ' +e)
+          return render_template('formulario.html', errores={},albums=[])
+     
+     finally: 
+          cursor.close()
+          
+
+@app.route('/detalle/<int:id>')
+def detalle(id):
+     try:
+          cursor=mysql.connection.cursor()
+          cursor.execute('SELECT * FROM tb_albums WHERE id=%s',(id,))
+          consultaid= cursor.fetchone()
+          return render_template('consulta.html' ,album=consultaid)
+     
+     except Exception as e:
+          print('error al consultar por ID: ' +e)
+          return redirect(url_for('home'))
+     
+     finally: 
+          cursor.close()
+
 
 @app.route('/consulta')
 def consulta():
@@ -58,7 +87,7 @@ def guardar():
      if not errores:
         try:
              cursor=mysql.connection.cursor()
-             cursor.execute('insert into new_table(titulo,artista,anio) values (%s,%s,%s)',(vtitulo,vartista,vanio))
+             cursor.execute('insert into tb_albums(titulo,artista,anio) values (%s,%s,%s)',(vtitulo,vartista,vanio))
              mysql.connection.commit()
              flash('album guardado en la bd')
              return redirect(url_for('home'))

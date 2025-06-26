@@ -6,7 +6,30 @@
     <title>Formulario</title>
 </head>
 <body>
-    <h2> Vista de consulta</h2>
-    <a href="/formulario"> Abrir vista de formulario </a>
+    <h2> Vista de consulta
+
+       <table>
+        <thead>
+
+            <tr>
+                <td>id:</td>
+                <td>albulm:</td>
+                <td>artista</td>
+                <td>año publicacion</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{album.0}}</td>
+            <td>{{album.1}}</td>
+            <td>{{album.2}}</td>
+            <td>{{album.3}}</td>
+            <td>{{album.4}}</td>
+            <td><a herf="#">eliminar</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a href="/">regresar formulario</a>
 </body>
 </html>
