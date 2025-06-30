@@ -60,13 +60,36 @@ def detalle(id):
      finally: 
           cursor.close()
 
+@app.route('/editar/<int:id>')
+def editar_album(id):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM tb_albums WHERE id = %s', (id,))
+        album = cursor.fetchone()
+        cursor.close()
+
+        if album:
+            return render_template('formUpdate.html', album=album, errores={})
+        else:
+            flash('Álbum no encontrado')
+            return redirect(url_for('home'))
+    except Exception as e:
+        flash(f'Error al cargar álbum: {str(e)}')
+        return redirect(url_for('home'))
+
+          
+
 
 @app.route('/consulta')
 def consulta():
     return render_template('consulta.html')
 
+
+
+
 @app.route('/guardar', methods = ['POST'])
 def guardar():
+     
 #listas  o diccionario 
 #lista de errores 
      errores={}
@@ -101,6 +124,54 @@ def guardar():
             cursor.close()
     #retorna el formalirio al validar los errores 
      return render_template('formulario.html',errores= errores)
+
+
+#########
+
+@app.route('/actuali/<int:id>', methods=['POST'])
+def actuali(id):
+    errores = {}
+
+    vtitulo = request.form.get('txt_titulo', '').strip()
+    vartista = request.form.get('txt_artista', '').strip()
+    vanio = request.form.get('txt_anio', '').strip()
+
+    # Validaciones
+    if not vtitulo:
+        errores['txt_titulo'] = 'El título es obligatorio'
+    if not vartista:
+        errores['txt_artista'] = 'El artista es obligatorio'
+    if not vanio:
+        errores['txt_anio'] = 'El año es obligatorio'
+    elif not vanio.isdigit() or int(vanio) < 1800 or int(vanio) > 2077:
+        errores['txt_anio'] = 'Ingresa un año válido'
+
+    if errores:
+        # Volver a mostrar formulario con errores y valores ingresados
+        album = (id, vtitulo, vartista, vanio)
+        return render_template('formUpdate.html', album=album, errores=errores)
+
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            UPDATE tb_albums
+            SET titulo = %s, artista = %s, anio = %s
+            WHERE id = %s
+        """, (vtitulo, vartista, vanio, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash('Álbum actualizado correctamente')
+        return redirect(url_for('detalle', id=id))
+
+    except Exception as e:
+        mysql.connection.rollback()
+        flash('Error al actualizar álbum: ' + str(e))
+         #retorna el formalirio al validar los errores 
+        return render_template('forUpdate.html',errores= errores)
+
+
+
 if __name__ == '__main__':
     app.run(port=3000,debug=True)
      

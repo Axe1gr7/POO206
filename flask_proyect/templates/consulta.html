@@ -25,11 +25,12 @@
             <td>{{album.2}}</td>
             <td>{{album.3}}</td>
             <td>{{album.4}}</td>
-            <td><a herf="#">eliminar</a></td>
-
+            <td><a herf="#">eliminar</a></td> 
         </tr>
         </tbody>
     </table>
-    <a href="/">regresar formulario</a>
+    <td><a href="{{ url_for('editar_album', id=album[0]) }}">editar álbum</a></td>
+
+
 </body>
 </html>
