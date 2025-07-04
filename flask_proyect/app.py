@@ -33,7 +33,7 @@ def PagNoE(e):
 def home():
      try:
           cursor=mysql.connection.cursor()
-          cursor.execute('SELECT * FROM tb_albums')
+          cursor.execute('SELECT * FROM tb_albums WHERE status = TRUE')
           consultaTodo= cursor.fetchall()
           return render_template('formulario.html', errores={},albums=consultaTodo)
      
@@ -171,6 +171,30 @@ def actuali(id):
         return render_template('forUpdate.html',errores= errores)
 
 
+@app.route('/eliminar/<int:id>', methods=['GET', 'POST'])
+def elimina(id):
+    if request.method == 'POST':
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.execute('UPDATE tb_albums SET status = FALSE WHERE id = %s', (id,))
+            mysql.connection.commit()
+            cursor.close()
+            flash('Álbum desactivado correctamente')
+        except Exception as e:
+            mysql.connection.rollback()
+            flash('Error al desactivar el álbum: ' + str(e))
+        return redirect(url_for('home'))  # redirige correctamente a la ruta principal
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM tb_albums WHERE id = %s", (id,))
+        album = cursor.fetchone()
+        cursor.close()
+        if album:
+            return render_template('eliminar.html', album=album)
+        else:
+            flash('Álbum no encontrado')
+            return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(port=3000,debug=True)
