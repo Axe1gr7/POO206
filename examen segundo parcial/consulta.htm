@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <h2> Vista de consulta
+
+       <table>
+        <thead>
+
+            <tr>
+                <td>id:</td>
+                <td>nombre:</td>
+                <td>correo</td>
+                <td>telefono</td>
+                <td>edad</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{album.0}}</td>
+            <td>{{album.1}}</td>
+            <td>{{album.2}}</td>
+            <td>{{album.3}}</td>
+            <td>{{album.4}}</td>
+            <td><a href="{{ url_for('editar_contactos', id=contactos[0]) }}">editar álbum</a></td>
+            <br></br>
+            <td><a href="{{ url_for('elimina', id=contactos[0]) }}">Eliminar</a></td>
+
+        </tr> 
+        
+        <td><a href="/">regresar</a></td>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

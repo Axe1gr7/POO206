@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Desactivar contacto</title>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>¿Deseas Eliminar este álbum?</h2>
+        <form action="{{ url_for('elimina', id=contac[0]) }}" method="POST">
+            <input type="text" name="txt_titulo" placeholder="Título" value="{{ album[1] }}" disabled>
+            <input type="text" name="txt_artista" placeholder="Artista" value="{{ album[2] }}" disabled>
+            <input type="number" name="txt_anio" placeholder="Año" value="{{ album[3] }}" disabled>
+            <button type="submit" class="btn">eliminar Álbum</button>
+        </form>
+        <a href="{{ url_for('home') }}" class="cancelar">Cancelar</a>
+    </div>
+</body>
+</html>

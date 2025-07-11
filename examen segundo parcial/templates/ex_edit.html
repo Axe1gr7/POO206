@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+</head>
+<body>
+    <h2>Actualizar contacto</h2>
+    <a href="/">Inicio</a>
+    <br><br>
+
+    <!-- Mensajes flash -->
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            {% for msj in mensajes %}
+                <h4>{{ msj }}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('actuali', id=album[0]) }}" method="post">
+<br>
+        <input type = "text" name="nombre" placeholder="nombre" value="{{request.form.nombre}}" >
+        {%if errores and errores.nombre%}
+          <p style =" color:purple">{{errores.nombre}}</p>
+        {%endif%}
+</br>
+<br>
+        <input type = "text" name="correo" placeholder="correo" value="{{request.form.correo}}">
+        {%if errores and errores.txt_correo%}
+          <p style =" color:purple">{{errores.correo}}</p>
+        {%endif%}
+</br>
+<br>
+        <input type = "number" name="telefono" placeholder="telefono" value="{{request.form.telefono}}">
+        {%if errores and errores.telefono%}
+          <p style =" color:purple">{{errores.telefono}}</p>
+        {%endif%}
+</br>
+<br>
+        <input type = "number" name="edad" placeholder="edad" value="{{request.form.edad}}">
+        {%if errores and errores.edad%}
+          <p style =" color:purple">{{errores.edad}}</p>
+        {%endif%}
+</br>
+
+
+        <button type="submit">Actualizar contacto</button>
+    </form>
+</body>
+</html>
